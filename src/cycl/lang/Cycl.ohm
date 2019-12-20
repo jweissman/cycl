@@ -1,0 +1,35 @@
+
+Cycl {
+    Program = ListOf<Stmt, delim>
+
+    delim = ";" | "\r" | "\n"
+
+    Stmt
+      = Command
+
+    Command
+      = BrowserOp
+    
+    BrowserOp
+      = BrowserOp "." BrowserOp -- chain
+      | FindElement
+      | GetElement
+    
+    FindElement = Find "(" Selector ")"
+    Find = "find"
+
+    GetElement = Get "(" Selector ")"
+    Get = "get"
+
+    Selector
+      = Selector ">" Selector -- within
+      | ElementSelector
+      | ClassSelector
+      | IdSelector
+
+    ClassSelector = "." + ident
+    IdSelector = "#" + ident
+    ElementSelector = ident
+
+    ident = letter alnum*
+}
