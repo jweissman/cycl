@@ -33,7 +33,11 @@ describe(Cycl, () => {
             )
         })
 
-        test.todo("clicks")
+        it("clicks", () => {
+            expect(cycl.interpret('get(.button).click')).toEqual(
+                `cy.get('.button').click()`
+            )
+        })
         test.todo("finds")
     })
 

@@ -1,6 +1,6 @@
 
 Cycl {
-    Program = ListOf<Stmt, delim>
+    Program = ListOf<Stmt, delim+> delim*
 
     delim = ";" | "\r" | "\n"
 
@@ -14,14 +14,17 @@ Cycl {
       = BrowserOp "." BrowserOp -- chain
       // | FindElement
       | GetElement
+      | ClickElement
       | ContainsText
       | VisitPage
       | Expectation
 
-
-    VisitPage = Visit "(" Route ")"
-    Visit = "visit"
-    Route = StringLiteral
+    VisitPage
+      = Visit "(" Route ")"
+    Visit
+      = "visit"
+    Route
+      = StringLiteral
 
     Expectation
       = Should "(" Condition "," Value ")"
@@ -33,11 +36,18 @@ Cycl {
       = "\"" ((~"\"" any)+) "\""
     Value
       = NumberLiteral
+      | StringLiteral
      
-    NumberLiteral = number
+    NumberLiteral
+      = number
     
-    FindElement = Find "(" Selector ")"
-    Find = "find"
+    // FindElement = Find "(" Selector ")"
+    // Find = "find"
+
+    ClickElement
+      = Click "()"?
+
+    Click = "click"
 
     GetElement = Get "(" Selector ")"
     Get = "get"

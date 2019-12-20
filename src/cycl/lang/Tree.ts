@@ -1,7 +1,20 @@
 import { Node } from 'ohm-js';
-import { Program, GetCommand, WithinSelector, ElementSelector, IdSelector, ClassSelector, Chain, Expectation, StringLiteral, NumberLiteral, VisitPageCommand, ContainsTextCommand } from './AST';
+import { ContainsTextCommand } from "./ast/ContainsTextCommand";
+import { VisitPageCommand } from "./ast/VisitPageCommand";
+import { GetCommand } from "./ast/GetCommand";
+import { WithinSelector } from "./ast/WithinSelector";
+import { ClassSelector } from "./ast/ClassSelector";
+import { IdSelector } from "./ast/IdSelector";
+import { ElementSelector } from "./ast/ElementSelector";
+import { Chain } from "./ast/Chain";
+import { Expectation } from "./ast/Expectation";
+import { StringLiteral } from "./StringLiteral";
+import { NumberLiteral } from "./ast/NumberLiteral";
+import { Program } from "./Program";
+import { ClickCommand } from './ast/ClickCommand';
+
 const Tree = {
-    Program: (statements: Node) => {
+    Program: (statements: Node, _delim: Node) => {
         return new Program(statements.tree)
     },
 
@@ -10,6 +23,8 @@ const Tree = {
 
     VisitPage: (_visit: Node, _lparen: Node, route: Node, _rparen: Node) =>
         new VisitPageCommand(route.tree),
+    
+    ClickElement: (_click: Node, _parens: Node) => new ClickCommand(),
 
     GetElement: (_find: Node, _lparen: Node, selector: Node, _rparen: Node) => {
         return new GetCommand(selector.tree);

@@ -1,4 +1,12 @@
 visit("localhost:3000");
 get(#list > li).should("have.length", 2);
 get(#item);
-contains("CYCL")
+
+contains("CYCL");
+get(#counter).should("have.text", "0 clicks");
+
+contains("increment").click;
+get(#counter).should("have.text", "1 clicks");
+
+contains("increment").click;
+get(#counter).should("have.text", "2 clicks");

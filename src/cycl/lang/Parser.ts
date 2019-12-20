@@ -1,5 +1,6 @@
 import chalk from 'chalk';
-import { AST, Program } from "./AST";
+import { AST } from "./ast/AST";
+import { Program } from "./Program";
 import Grammar from "./Grammar";
 import semantics from "./Semantics";
 import { Dict } from 'ohm-js';
