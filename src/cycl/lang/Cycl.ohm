@@ -14,6 +14,20 @@ Cycl {
       = BrowserOp "." BrowserOp -- chain
       | FindElement
       | GetElement
+      | Expectation
+
+    Expectation
+      = Should "(" Condition "," Value ")"
+    Should
+      = "should"
+    Condition
+      = StringLiteral
+    StringLiteral
+      = "\"" ((~"\"" any)+) "\""
+    Value
+      = NumberLiteral
+     
+    NumberLiteral = number
     
     FindElement = Find "(" Selector ")"
     Find = "find"
@@ -32,4 +46,5 @@ Cycl {
     ElementSelector = ident
 
     ident = letter alnum*
+    number = digit+
 }

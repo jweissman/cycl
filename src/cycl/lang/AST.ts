@@ -56,10 +56,50 @@ export class GetCommand extends AST {
         super();
     }
     get children() { return [this.item]; }
-    inspect() { return `get ${this.item.inspect}` }
+    inspect() { return `get ${this.item.inspect()}` }
     toJS() {
         return `cy.get('${this.item.toJS()}')`;
     }
+}
+
+export class Chain extends AST {
+    constructor(private commands: AST[]) { super(); }
+    get children(): AST[] { return this.commands; }
+    toJS(): string {
+        return this.commands.map(cmd => cmd.toJS()).join(".");
+    }
+    inspect(): string {
+        return this.commands.map(cmd => cmd.inspect).join(" -> ");
+    }
+}
+
+export class Expectation extends AST {
+    constructor(private condition: AST, private value: AST) {
+        super();
+    }
+    toJS(): string {
+        return `should(${this.condition.toJS()}, ${this.value.toJS()})`
+    }
+    get children(): AST[] {
+        return [ this.condition, this.value ];
+    }
+    inspect(): string {
+        return `expect(${this.condition.inspect()}, ${this.value.inspect()})`
+    }
+}
+
+export class StringLiteral extends AST {
+    constructor(private value: string) { super(); }
+    toJS(): string { return `'${this.value}'`; }
+    get children(): AST[] { return [] }
+    inspect(): string { return this.toJS(); }
+}
+
+export class NumberLiteral extends AST {
+    constructor(private value: number) { super(); }
+    toJS(): string { return String(this.value); }
+    get children(): AST[] { return [] }
+    inspect(): string { return this.toJS(); }
 }
 
 export class Program extends AST {

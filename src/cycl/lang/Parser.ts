@@ -1,24 +1,11 @@
 import chalk from 'chalk';
-import { AST, Program, GetCommand, WithinSelector, IdSelector, ElementSelector } from "./AST";
+import { AST, Program } from "./AST";
 import Grammar from "./Grammar";
 import semantics from "./Semantics";
 import { Dict } from 'ohm-js';
 
 export default class Parser {
-    analyze(input: string): AST {
-        return Parser.tree(input);
-        //return new Program([
-        //    new GetCommand(
-        //        new WithinSelector(
-        //            new IdSelector("list"),
-        //            new ElementSelector("li")
-        //        )
-        //    )
-        //])
-    }
-
     static noop = new Program([]);
-
     static tree(input: string): AST { 
         let code = input.trim();
         if (code.length === 0) {
@@ -34,4 +21,6 @@ export default class Parser {
             throw new SyntaxError(match.shortMessage)
         }
     }
+
+    analyze(input: string): AST { return Parser.tree(input); }
 }

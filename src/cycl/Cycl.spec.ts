@@ -11,9 +11,9 @@ describe(Cycl, () => {
             )
         })
 
-        xit('expects', () => {
+        it('expects', () => {
             expect(
-                cycl.interpret(`expect get(#list > .li) to "have.length" 2`)
+                cycl.interpret(`get(#list > li).should("have.length", 2)`)
             ).toEqual(
                 `cy.get('#list>li').should('have.length', 2)`
             )
