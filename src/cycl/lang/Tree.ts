@@ -1,9 +1,15 @@
 import { Node } from 'ohm-js';
-import { Program, GetCommand, WithinSelector, ElementSelector, IdSelector, ClassSelector, Chain, Expectation, StringLiteral, NumberLiteral } from './AST';
+import { Program, GetCommand, WithinSelector, ElementSelector, IdSelector, ClassSelector, Chain, Expectation, StringLiteral, NumberLiteral, VisitPageCommand, ContainsTextCommand } from './AST';
 const Tree = {
     Program: (statements: Node) => {
         return new Program(statements.tree)
     },
+
+    ContainsText: (_contains: Node, _lparen: Node, text: Node, _rparen: Node) =>
+        new ContainsTextCommand(text.tree),
+
+    VisitPage: (_visit: Node, _lparen: Node, route: Node, _rparen: Node) =>
+        new VisitPageCommand(route.tree),
 
     GetElement: (_find: Node, _lparen: Node, selector: Node, _rparen: Node) => {
         return new GetCommand(selector.tree);

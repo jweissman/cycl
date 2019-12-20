@@ -12,9 +12,16 @@ Cycl {
     
     BrowserOp
       = BrowserOp "." BrowserOp -- chain
-      | FindElement
+      // | FindElement
       | GetElement
+      | ContainsText
+      | VisitPage
       | Expectation
+
+
+    VisitPage = Visit "(" Route ")"
+    Visit = "visit"
+    Route = StringLiteral
 
     Expectation
       = Should "(" Condition "," Value ")"
@@ -34,6 +41,9 @@ Cycl {
 
     GetElement = Get "(" Selector ")"
     Get = "get"
+
+    ContainsText = Contains "(" StringLiteral ")"
+    Contains = "contains"
 
     Selector
       = Selector ">" Selector -- within

@@ -62,6 +62,24 @@ export class GetCommand extends AST {
     }
 }
 
+export class VisitPageCommand extends AST {
+    constructor(private page: StringLiteral) {
+        super();
+    }
+    get children(): AST[] { return []}
+    inspect() { return `visit ${this.page.inspect()}`}
+    toJS() { return `cy.visit(${this.page.toJS()})`}
+}
+
+export class ContainsTextCommand extends AST {
+    constructor(private text: StringLiteral) {
+        super();
+    }
+    get children(): AST[] { return [this.text]}
+    inspect() { return `contains ${this.text.inspect()}`};
+    toJS() { return `cy.contains(${this.text.toJS()})`; }
+}
+
 export class Chain extends AST {
     constructor(private commands: AST[]) { super(); }
     get children(): AST[] { return this.commands; }
@@ -69,7 +87,7 @@ export class Chain extends AST {
         return this.commands.map(cmd => cmd.toJS()).join(".");
     }
     inspect(): string {
-        return this.commands.map(cmd => cmd.inspect).join(" -> ");
+        return this.commands.map(cmd => cmd.inspect()).join(" -> ");
     }
 }
 
@@ -92,14 +110,14 @@ export class StringLiteral extends AST {
     constructor(private value: string) { super(); }
     toJS(): string { return `'${this.value}'`; }
     get children(): AST[] { return [] }
-    inspect(): string { return this.toJS(); }
+    inspect(): string { return `String(${this.toJS()})`; }
 }
 
 export class NumberLiteral extends AST {
     constructor(private value: number) { super(); }
     toJS(): string { return String(this.value); }
     get children(): AST[] { return [] }
-    inspect(): string { return this.toJS(); }
+    inspect(): string { return `Number(${this.toJS()})`; }
 }
 
 export class Program extends AST {
@@ -107,7 +125,9 @@ export class Program extends AST {
         super();
     }
     get children() { return this.commands; }
-    inspect() { return this.commands.map(c => c.inspect()).join("\n") + "---" }
+    inspect() {
+        return this.commands.map(c => c.inspect()).join("\n") + "---"
+    }
     toJS(): string {
         return this.commands.map(command => command.toJS()).join("\n");
     }

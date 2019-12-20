@@ -7,4 +7,8 @@ export default class Cycl {
         console.log("CONVERT TO JS", tree.inspect())
         return tree.toJS();
     }
+
+    embed(key: string, descriptor: string, input: string): string {
+        return `${key}('${descriptor}', () => {\n${input}\n});`
+    }
 }

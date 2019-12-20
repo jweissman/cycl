@@ -6,19 +6,17 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>CYCL</h1>
       </header>
+      <main>
+        {/* <p></p> */}
+        {/* a tiny command language */}
+        <ul id="list">
+          <li>awesome</li>
+          <li>clean</li>
+        </ul>
+        <div id="item">item</div>
+      </main>
     </div>
   );
 }
