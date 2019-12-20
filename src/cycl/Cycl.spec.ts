@@ -13,7 +13,7 @@ describe(Cycl, () => {
 
         it('gets', () => {
             expect(
-                cycl.interpret(`get(#list > li)`)
+                cycl.interpret(`get(#list > li);`)
             ).toEqual(
                 `cy.get('#list>li')`
             )
@@ -27,7 +27,7 @@ describe(Cycl, () => {
 
         it('expects', () => {
             expect(
-                cycl.interpret(`get(#list > li).should("have.length", 2)`)
+                cycl.interpret(`get(#list > li).should("have.length", 2);`)
             ).toEqual(
                 `cy.get('#list>li').should('have.length', 2)`
             )
@@ -38,6 +38,17 @@ describe(Cycl, () => {
                 `cy.get('.button').click()`
             )
         })
+
+        it('comments', () => {
+            expect(cycl.interpret("// ignored")).toEqual('')
+        })
+
+        xit('urls', () => {
+            expect(cycl.interpret("url.should(\"include\", '/commands/actions'")).toEqual(
+                `cy.url().should('include', '/commands/actions')`
+            )
+        })
+
         test.todo("finds")
     })
 

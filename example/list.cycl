@@ -1,12 +1,22 @@
-visit("localhost:3000");
-get(#list > li).should("have.length", 2);
-get(#item);
+// list.cycl
 
-contains("CYCL");
-get(#counter).should("have.text", "0 clicks");
+// has a list
+visit("localhost:3000")
+get(#list > li).should("have.length", 2)
+get(#item)
 
-contains("increment").click;
-get(#counter).should("have.text", "1 clicks");
+// has CYCL on the page
+// it "has text 'cycl'"
+contains("CYCL")
 
-contains("increment").click;
-get(#counter).should("have.text", "2 clicks");
+// interact with an element
+//it "interacts with an element"
+get(#counter).should("have.text", "0 clicks")
+contains("increment").click
+get(#counter).should("have.text", "1 clicks")
+
+contains("increment").click
+get(#counter).should("have.text", "2 clicks")
+
+// asserts on url
+// url.should("include", "/commands/actions")

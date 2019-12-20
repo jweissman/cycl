@@ -1,11 +1,16 @@
 
 Cycl {
-    Program = ListOf<Stmt, delim+> delim*
+    Program = ListOf<Stmt, delim?> delim*
 
     delim = ";" | "\r" | "\n"
+    lineTerminator = "\r" | "\n"
 
     Stmt
       = Command
+
+    comment
+      = #"//" #(~lineTerminator any)* lineTerminator? 
+    space += comment
 
     Command
       = BrowserOp

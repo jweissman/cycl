@@ -11,14 +11,32 @@ A tiny language wrapping around the Cypress API for rapid external testing of we
 Suppose we write 
 
 ```
+# count.cycl
 visit("localhost:3000");
 get(#list > li).should("have.length", 2);
-get(#item);
-contains("CYCL")
+get(#counter).should("have.text", "0 clicks");
+contains("increment").click;
+get(#counter).should("have.text", "1 clicks");
 ```
 
-to a file `my-file.cycl`, and then run `cycl my-file.cycl`. Cycl will compile the test, and write the output JS to the Cypress `integration` folder to a file `cycl/my-file.js`, watching the file for updates to trigger recompilation.
+to a file `count.cycl` somewhere, and then run `cycl path/to/count.cycl`.
+Cycl will compile the test code, embed it in a small shell, and write the output JS to file.
+It will end up in the Cypress `integration` folder in a file `cycl/count.js`, triggering test runner.
+Cycl will watch the file for updates to trigger recompilation.
 
-Several test runner commands have been modelled, including `visit`, `get`, `should` etc.
+Several test runner commands have been modelled, including `visit`, `get`, `should`, `click` etc.
 
-Note we model CSS class names and identifiers directly, so you can just say `get(#list)` or `get(.div).should("have.length",2)`.
+## commands
+
+| Cycl                     | Cypress             |
+|--------------------------|---------------------|
+| `visit(string)`          | `cy.visit(string)`  |
+| `get(selector)`          | `cy.get(selector)`  |
+| `contains(text)`         | `cy.contains(text)` |
+| `click`                  | `[receiver].click()` |
+| `.should(string, value)` | `[receiver].should(string, value)` |
+
+### selectors
+
+We "natively" model css ids, classes and 'within' (e.g., `.list > li`), so these sorts of forms don't need quotation:
+you can just say `get(#list)` or `get(.div).should("have.length",2)`.
