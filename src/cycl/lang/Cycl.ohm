@@ -2,7 +2,7 @@
 Cycl {
     Program = ListOf<Stmt, delim?> delim*
 
-    delim = ";" | "\r" | "\n"
+    delim = ";" | lineTerminator
     lineTerminator = "\r" | "\n"
 
     Stmt
@@ -22,6 +22,7 @@ Cycl {
       | ClickElement
       | ContainsText
       | VisitPage
+      | IntrospectURL
       | Expectation
 
     VisitPage
@@ -31,14 +32,25 @@ Cycl {
     Route
       = StringLiteral
 
+    IntrospectURL
+      = URL "()"?
+    URL
+      = "url"
+
     Expectation
-      = Should "(" Condition "," Value ")"
+      = Should Expected
+    
+    Expected 
+      = "(" Condition "," Value ")"
+      // | "(" Condition ")" -- unary
+
     Should
       = "should"
     Condition
       = StringLiteral
     StringLiteral
-      = "\"" ((~"\"" any)+) "\""
+      = "\"" ((~"\"" any)+) "\"" -- double
+      | "\'" ((~"\'" any)+) "\'" -- single
     Value
       = NumberLiteral
       | StringLiteral

@@ -36,3 +36,23 @@ okay, so with all that in mind:
 - we're going to tackle find/get/click sort of basics
 - we're going to try to model simple assignment, and passing variables into browser operation functions
 - i'm thinking SQL as a kind of model here (cy is essentially a query lang for the browser, we're just unleashing it!)
+
+# black-box testing
+
+we are trying to examine a system from outside, very intentionally not using very much
+of that system's information about itself to describe it.
+
+we could derive a lot of this from a more formal model of application behavior but that's 
+going to be too high a level of abstraction.
+
+(what kind of types might we need? a simple list model might be enough to start capturing the semantics around some more
+detailed expectations... we're going for business-value level interactions and behaviors, user journeys. it's a user
+journey language using the cypress api as its model, so the question is what is cypress' model?
+it's about web applications, the internet. it's sort of interesting, what kind of data types seem
+natural? maybe that 'localhost:3000' should just be recognized and parsed as a data type of its own,
+a native uri type. yet xml literal seems like going a long way. let's just stick with the api,
+although it's interest -- path literal seems valuable for application logic testing)
+
+(other syntax thoughts -- would be good to get away from ';' everywhere, and bare funcalls would be nicer, although...
+probably confusing given the chaining! maybe just avoiding the ';' for now?)
+

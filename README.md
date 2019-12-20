@@ -34,6 +34,7 @@ Several test runner commands have been modelled, including `visit`, `get`, `shou
 | `get(selector)`          | `cy.get(selector)`  |
 | `contains(text)`         | `cy.contains(text)` |
 | `click`                  | `[receiver].click()` |
+| `url`                    | `url.click()` |
 | `.should(string, value)` | `[receiver].should(string, value)` |
 
 ### selectors

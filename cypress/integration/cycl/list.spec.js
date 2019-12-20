@@ -9,5 +9,7 @@ cy.contains('increment').click()
 cy.get('#counter').should('have.text', '1 clicks')
 cy.contains('increment').click()
 cy.get('#counter').should('have.text', '2 clicks')
+cy.url().should('include', '/')
+cy.url().should('not.include', '/admin')
 });
 });

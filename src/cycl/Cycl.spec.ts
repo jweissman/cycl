@@ -4,17 +4,13 @@ describe(Cycl, () => {
     let cycl: Cycl = new Cycl();
     describe('a simple command language for Cypress', () => {
         it('visits', () => {
-            expect(
-                cycl.interpret(`visit("localhost:12345")`)
-            ).toEqual(
+            expect(cycl.interpret(`visit("localhost:12345")`)).toEqual(
                 `cy.visit('localhost:12345')`
             )
         })
 
         it('gets', () => {
-            expect(
-                cycl.interpret(`get(#list > li);`)
-            ).toEqual(
+            expect(cycl.interpret(`get(#list > li);`)).toEqual(
                 `cy.get('#list>li')`
             )
         })
@@ -25,12 +21,14 @@ describe(Cycl, () => {
             )
         })
 
-        it('expects', () => {
-            expect(
-                cycl.interpret(`get(#list > li).should("have.length", 2);`)
-            ).toEqual(
-                `cy.get('#list>li').should('have.length', 2)`
-            )
+        describe('expects', () => {
+            it('binary', () => {
+                expect(cycl.interpret(`get(#list > li).should("have.length", 2);`)).toEqual(
+                    `cy.get('#list>li').should('have.length', 2)`
+                )
+            })
+
+            test.todo('unary')
         })
 
         it("clicks", () => {
@@ -43,9 +41,15 @@ describe(Cycl, () => {
             expect(cycl.interpret("// ignored")).toEqual('')
         })
 
-        xit('urls', () => {
-            expect(cycl.interpret("url.should(\"include\", '/commands/actions'")).toEqual(
+        it('urls', () => {
+            expect(cycl.interpret("url.should(\"include\", '/commands/actions')")).toEqual(
                 `cy.url().should('include', '/commands/actions')`
+            )
+        })
+
+        xit("types", () => {
+            expect(cycl.interpret("get('.form-control').type('fake@email').should('have.value', 'fake@email')")).toEqual(
+                `cy.get('form-control').type('fake@email.com').should('have.value', 'fake@email')`
             )
         })
 

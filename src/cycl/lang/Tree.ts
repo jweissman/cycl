@@ -12,6 +12,7 @@ import { StringLiteral } from "./StringLiteral";
 import { NumberLiteral } from "./ast/NumberLiteral";
 import { Program } from "./Program";
 import { ClickCommand } from './ast/ClickCommand';
+import { IntrospectURL } from './ast/IntrospectURL';
 
 const Tree = {
     Program: (statements: Node, _delim: Node) => {
@@ -46,12 +47,18 @@ const Tree = {
     BrowserOp_chain: (left: Node, _dot: Node, right: Node) =>
         new Chain([left.tree, right.tree]),
 
-
-    Expectation: (_should: Node, _lp: Node, cond: Node, _comma: Node, val: Node, _rp: Node) => {
+    Expectation: (_should: Node, expected: Node) => expected.tree,
+    
+    Expected: (_lp: Node, cond: Node, _comma: Node, val: Node, _rp: Node) => {
         return new Expectation(cond.tree, val.tree)
     },
 
-    StringLiteral: (_lq: Node, contents: Node, _rq: Node) => new StringLiteral(contents.sourceString),
+    IntrospectURL: (_url: Node, _parens: Node) => {
+        return new IntrospectURL();
+    },
+
+    StringLiteral_single: (_lq: Node, contents: Node, _rq: Node) => new StringLiteral(contents.sourceString),
+    StringLiteral_double: (_lq: Node, contents: Node, _rq: Node) => new StringLiteral(contents.sourceString),
     NumberLiteral: (digits: Node) => new NumberLiteral(Number(digits.sourceString)),
     
 
