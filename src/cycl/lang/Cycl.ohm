@@ -2,28 +2,25 @@
 Cycl {
     Program = ListOf<Stmt, delim?> delim*
 
-    delim = ";" | lineTerminator
-    lineTerminator = "\r" | "\n"
-
     Stmt
       = Command
-
-    comment
-      = #"//" #(~lineTerminator any)* lineTerminator? 
-    space += comment
 
     Command
       = BrowserOp
     
     BrowserOp
-      = BrowserOp "." BrowserOp -- chain
-      // | FindElement
-      | GetElement
-      | ClickElement
-      | ContainsText
+      = BrowserOp "." ChainableBrowserOp -- chain
       | VisitPage
       | IntrospectURL
+      | GetElement
+      | ContainsText
+    
+    ChainableBrowserOp
+      =
+      | ClickElement
+      | TypeInto
       | Expectation
+      // | FindElement
 
     VisitPage
       = Visit "(" Route ")"
@@ -36,6 +33,21 @@ Cycl {
       = URL "()"?
     URL
       = "url"
+
+    GetElement = Get "(" Selector ")"
+    Get = "get"
+
+    
+    ClickElement
+      = Click "()"?
+
+    Click = "click"
+
+
+    TypeInto
+      = Type "(" StringLiteral ")"
+    
+    Type = "type"
 
     Expectation
       = Should Expected
@@ -61,14 +73,6 @@ Cycl {
     // FindElement = Find "(" Selector ")"
     // Find = "find"
 
-    ClickElement
-      = Click "()"?
-
-    Click = "click"
-
-    GetElement = Get "(" Selector ")"
-    Get = "get"
-
     ContainsText = Contains "(" StringLiteral ")"
     Contains = "contains"
 
@@ -82,6 +86,12 @@ Cycl {
     IdSelector = "#" + ident
     ElementSelector = ident
 
-    ident = letter alnum*
+    ident = letter (alnum | "-" | "_")*
     number = digit+
+
+    comment
+      = #"//" #(~lineTerminator any)* lineTerminator? 
+    space += comment
+    delim = ";" | lineTerminator
+    lineTerminator = "\r" | "\n"
 }

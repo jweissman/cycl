@@ -11,5 +11,6 @@ cy.contains('increment').click()
 cy.get('#counter').should('have.text', '2 clicks')
 cy.url().should('include', '/')
 cy.url().should('not.include', '/admin')
+cy.get('.action-email').type('fake@email.com').should('have.value', 'fake@email.com')
 });
 });

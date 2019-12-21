@@ -13,6 +13,7 @@ import { NumberLiteral } from "./ast/NumberLiteral";
 import { Program } from "./Program";
 import { ClickCommand } from './ast/ClickCommand';
 import { IntrospectURL } from './ast/IntrospectURL';
+import { TypeIntoCommand } from './ast/TypeIntoCommand';
 
 const Tree = {
     Program: (statements: Node, _delim: Node) => {
@@ -26,6 +27,9 @@ const Tree = {
         new VisitPageCommand(route.tree),
     
     ClickElement: (_click: Node, _parens: Node) => new ClickCommand(),
+
+    TypeInto: (_type: Node, _lparens: Node, text: Node, _rparens: Node) =>
+        new TypeIntoCommand(text.tree),
 
     GetElement: (_find: Node, _lparen: Node, selector: Node, _rparen: Node) => {
         return new GetCommand(selector.tree);

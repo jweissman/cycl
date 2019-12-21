@@ -42,14 +42,14 @@ describe(Cycl, () => {
         })
 
         it('urls', () => {
-            expect(cycl.interpret("url.should(\"include\", '/commands/actions')")).toEqual(
+            expect(cycl.interpret("url.should('include', '/commands/actions')")).toEqual(
                 `cy.url().should('include', '/commands/actions')`
             )
         })
 
-        xit("types", () => {
-            expect(cycl.interpret("get('.form-control').type('fake@email').should('have.value', 'fake@email')")).toEqual(
-                `cy.get('form-control').type('fake@email.com').should('have.value', 'fake@email')`
+        it("types", () => {
+            expect(cycl.interpret("get(.form-control).type('fake@email').should('have.value', 'fake@email')")).toEqual(
+                `cy.get('.form-control').type('fake@email').should('have.value', 'fake@email')`
             )
         })
 

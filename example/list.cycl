@@ -23,6 +23,6 @@ url.should("include", "/")
 url.should("not.include", "/admin")
 
 // can type into a form... whew!
-// get('.action-email')
-//  .type('fake@email.com')
-//  .should('have.value', 'fake@email.com')
+get(.action-email)
+ .type('fake@email.com')
+ .should('have.value', 'fake@email.com')

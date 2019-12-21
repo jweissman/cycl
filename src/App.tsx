@@ -14,10 +14,13 @@ const App: React.FC = () => {
           <li>clean</li>
         </ul>
         <div id="item">item</div>
-        <div id="counter">{count} clicks</div>
-        <button onClick={()=>setCount(count+1)}>
-          increment
-        </button>
+        <section>
+          <div id="counter">{count} clicks</div>
+          <button onClick={() => setCount(count + 1)}>
+            increment
+          </button>
+        </section>
+        <input type='text' className="action-email" />
       </main>
     </div>
   );
