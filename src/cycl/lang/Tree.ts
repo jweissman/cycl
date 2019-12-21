@@ -8,7 +8,7 @@ import { IdSelector } from "./ast/IdSelector";
 import { ElementSelector } from "./ast/ElementSelector";
 import { Chain } from "./ast/Chain";
 import { Expectation } from "./ast/Expectation";
-import { StringLiteral } from "./StringLiteral";
+import { StringLiteral } from "./ast/StringLiteral";
 import { NumberLiteral } from "./ast/NumberLiteral";
 import { Program } from "./Program";
 import { ClickCommand } from './ast/ClickCommand';

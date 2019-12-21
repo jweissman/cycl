@@ -1,4 +1,4 @@
-import { AST } from "./ast/AST";
+import { AST } from "./AST";
 export class StringLiteral extends AST {
     constructor(private value: string) { super(); }
     toJS(): string { return `'${this.value}'`; }

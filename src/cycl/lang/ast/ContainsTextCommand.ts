@@ -1,4 +1,4 @@
-import { StringLiteral } from "../StringLiteral";
+import { StringLiteral } from "./StringLiteral";
 import { AST } from "./AST";
 export class ContainsTextCommand extends AST {
     constructor(private text: StringLiteral) {
